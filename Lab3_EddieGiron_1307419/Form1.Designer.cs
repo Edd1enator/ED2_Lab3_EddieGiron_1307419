@@ -44,6 +44,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lstPersona = new System.Windows.Forms.ListBox();
             this.btnLista = new System.Windows.Forms.Button();
+            this.btnCarataCompr = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnCartaDescom = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmbCompanies
@@ -195,11 +201,63 @@
             this.btnLista.UseVisualStyleBackColor = true;
             this.btnLista.Click += new System.EventHandler(this.btnLista_Click);
             // 
+            // btnCarataCompr
+            // 
+            this.btnCarataCompr.Location = new System.Drawing.Point(6, 54);
+            this.btnCarataCompr.Name = "btnCarataCompr";
+            this.btnCarataCompr.Size = new System.Drawing.Size(75, 30);
+            this.btnCarataCompr.TabIndex = 43;
+            this.btnCarataCompr.Text = "Mostrar";
+            this.btnCarataCompr.UseVisualStyleBackColor = true;
+            this.btnCarataCompr.Click += new System.EventHandler(this.btnCarataCompr_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.btnCartaDescom);
+            this.groupBox1.Controls.Add(this.btnCarataCompr);
+            this.groupBox1.Location = new System.Drawing.Point(955, 151);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(200, 100);
+            this.groupBox1.TabIndex = 44;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Carta de recomendacion";
+            // 
+            // btnCartaDescom
+            // 
+            this.btnCartaDescom.Location = new System.Drawing.Point(119, 54);
+            this.btnCartaDescom.Name = "btnCartaDescom";
+            this.btnCartaDescom.Size = new System.Drawing.Size(75, 30);
+            this.btnCartaDescom.TabIndex = 44;
+            this.btnCartaDescom.Text = "Mostrar";
+            this.btnCartaDescom.UseVisualStyleBackColor = true;
+            this.btnCartaDescom.Click += new System.EventHandler(this.btnCartaDescom_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 35);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(80, 16);
+            this.label6.TabIndex = 45;
+            this.label6.Text = "Comprimida";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(97, 35);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(103, 16);
+            this.label7.TabIndex = 46;
+            this.label7.Text = "Descomprimida";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1019, 458);
+            this.ClientSize = new System.Drawing.Size(1288, 454);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.cmbCompanies);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.btnDecodificar);
@@ -218,6 +276,8 @@
             this.Controls.Add(this.btnLista);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -241,6 +301,11 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListBox lstPersona;
         private System.Windows.Forms.Button btnLista;
+        private System.Windows.Forms.Button btnCarataCompr;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button btnCartaDescom;
     }
 }
 

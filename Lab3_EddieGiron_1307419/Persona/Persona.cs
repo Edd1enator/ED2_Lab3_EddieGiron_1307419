@@ -14,6 +14,7 @@ namespace Lab3_EddieGiron_1307419
             datebirth = "";
             address = "";
             companies = new string[] { };
+            CartasRecomendacion = new List<CartaRecomendacion>();
         }
         public string name { get; set; }
         public string dpi { get; set; }
@@ -22,6 +23,7 @@ namespace Lab3_EddieGiron_1307419
         public string[] companies {  get; set; }
         public List<Dictionary<char, Letra>> diccionarios { get; set; }
         public List<double> cifrados { get; set; }
+        public List<CartaRecomendacion> CartasRecomendacion {  get; set; }
 
 
         public int CompareTo(Persona other)

@@ -11,6 +11,7 @@ using System.IO;
 using Newtonsoft.Json.Linq;
 using System.Reflection;
 using Newtonsoft.Json;
+using System.IO.Compression;
 using Es_Arboles;
 
 namespace Lab3_EddieGiron_1307419
@@ -20,6 +21,7 @@ namespace Lab3_EddieGiron_1307419
         private List<Persona> listPersona = new List<Persona>();
         private Es_Arboles.AVL<Persona> AVL = new Es_Arboles.AVL<Persona>();
         private List<Persona> listBusquedas = new List<Persona>();
+        private Dictionary<string, string> Personas_cartas = new Dictionary<string, string>();
         private int tlist;
         private int max;
         private int min;
@@ -35,9 +37,10 @@ namespace Lab3_EddieGiron_1307419
             Persona aux = new Persona();
             Aritmetica aritmetica = new Aritmetica();
 
-            string ruta = "C:/Users/eddie/OneDrive - Universidad Rafael Landivar/U/Año 5/Segundo Ciclo/Estructura de datos 2 (lab)/Laboratorio 2/input lab2.csv";
+            string ruta2 = "input.csv";
+            string RutaCartas = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "inputs");
 
-            foreach (string item in File.ReadLines(ruta))
+            foreach (string item in File.ReadLines(ruta2))
             {
                 if (item.StartsWith("INSERT;"))
                 {
@@ -158,6 +161,26 @@ namespace Lab3_EddieGiron_1307419
                     }
                 }
             }
+            //Lectura de cartas de recomendación
+            string[] ArchivosCartas = Directory.GetFiles(RutaCartas, "*.txt");
+            foreach (var Archivo in ArchivosCartas)
+            {
+                string NombreA = Path.GetFileName(Archivo);
+                string TextoA = File.ReadAllText(Archivo);
+                string DPI = NombreA.Substring(4, 13);
+                CartaRecomendacion Carta = new CartaRecomendacion();
+                Carta.Texto = TextoA;
+                Carta.Compresion = Compresion2(TextoA);
+
+                foreach (var Persona in listPersona)
+                {
+                    if (Persona.dpi == DPI)
+                    {
+                        Persona.CartasRecomendacion.Add(Carta);
+                    }
+                }
+            }
+
         }
 
         private void btnLista_Click(object sender, EventArgs e)
@@ -325,6 +348,69 @@ namespace Lab3_EddieGiron_1307419
                 throw;
             }
         }
+        private string Compresion2 (string texto)
+        {
+            byte[] datosComprimidos;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                using (GZipStream gzipStream = new GZipStream(ms, CompressionMode.Compress))
+                {
+                    byte[] datos = Encoding.UTF8.GetBytes(texto);
+                    gzipStream.Write(datos, 0, datos.Length);
+                }
+                datosComprimidos = ms.ToArray();
+            }
+            string textoComprimido = Convert.ToBase64String(datosComprimidos);
+            return textoComprimido;
+        }
+        private void btnCarataCompr_Click(object sender, EventArgs e)
+        {
+            lstPersona.Items.Clear();
+            string DPI = txtBuscarDPI.Text;
+            string Texto = "";
+            if (txtBuscarDPI != null)
+            {
+                foreach (var Persona in listPersona)
+                {
+                    if (Persona.dpi == DPI)
+                    {
+                        foreach (var Cartas in Persona.CartasRecomendacion)
+                        {
+                            //Texto = Texto + Cartas.Compresion + "\n";
+                            lstPersona.Items.Add(Cartas.Compresion);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("No se digitó ningún DPI", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            //lstPersona.Text = Texto;
+        }
+        private void btnCartaDescom_Click(object sender, EventArgs e)
+        {
+            lstPersona.Items.Clear();
+            string DPI = txtBuscarDPI.Text;
+            string Texto = "";
+            if (txtBuscarDPI != null)
+            {
+                foreach (var Persona in listPersona)
+                {
+                    if (Persona.dpi == DPI)
+                    {
+                        foreach (var Cartas in Persona.CartasRecomendacion)
+                        {
+                            lstPersona.Items.Add(Cartas.Texto);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("No se digitó ningún DPI", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
 
         //Sin uso
         private void cmbCompanies_SelectedIndexChanged(object sender, EventArgs e)
@@ -334,6 +420,9 @@ namespace Lab3_EddieGiron_1307419
         {
         }
         private void lstPersona_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
+        private void btnArchivoCarta_Click(object sender, EventArgs e)
         {
         }
     }
